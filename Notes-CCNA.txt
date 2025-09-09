@@ -144,6 +144,197 @@ s2
 	25 user
 	vlan 75
 		
-
 		
+CAI(Convert, Add, Insert)
+
+C: 8 = 3bits
+A: /27 + 3bits = /30 (4th, 4i)  				192.168.128.0/30 = First subnet
+I: Ipasok 4i sa 4th octet = 192.168.128.4 /30 = Second subnet
+
+192.168.128.0/30
+192.168.128.4/30
+192.168.128.8/30
+192.168.128.12/30
+192.168.128.16/30
+192.168.128.20/30
+192.168.128.24/30
+192.168.128.28/30
+
+Not included: 192.168.128.32/30
+
+@coreTAAS
+conf t
+	ip routing
+	int loopback 1
+	 ip add 192.168.128.1 255.255.255.252
+	int loopback 2
+	 ip add 192.168.128.5 255.255.255.252
+	int loopback 3
+	 ip add 192.168.128.9 255.255.255.252
+	int loopback 4
+	 ip add 192.168.128.13 255.255.255.252 
+	int loopback 5
+	 ip add 192.168.128.17 255.255.255.252	
+	int loopback 6
+	 ip add 192.168.128.21 255.255.255.252
+	int loopback 7
+	 ip add 192.168.128.25 255.255.255.252
+	int loopback 8
+	 ip add 192.168.128.29 255.255.255.252
+	end
+	
+Exercise 08: Subnet for 32 sites using the Network address 172.16.225.0/19. Maximize the number of IP addresses.
+
+Apply the first valid IP of the 
+5th subnet of coreTAAS of IP addresses.
+
+
+CAI
+172.16.225.0/19
+(3rd,32i) Rivan Method
+
+
+C: 32 = 5bits
+A: /19 + 5 = 24
+I: ipasok 1i sa 3rd octet
+
+172.16.224.0/24
+172.16.225.0/24
+172.16.226.0/24
+172.16.227.0/24
+172.16.228.0/24
+172.16.229.0/24
+172.16.230.0/24
+172.16.231.0/24
+172.16.232.0/24
+172.16.233.0/24
+172.16.234.0/24
+172.16.235.0/24
+172.16.236.0/24
+172.16.237.0/24
+
+conf t
+	ip routing
+	int loopback 9
+	 ip add 172.16.228.1 255.255.255.0
+	 end
+
+172.16.28.17 /29 (4th,8i) 248
+Network: 172.16.28.16/29   255.255.255.248
+
+10.140.12.81 /26 (4th,64i)
+Network: 10.140.12.64 /26  255.255.255.192
+
+192.168.105.2 /19 (3rd,32i)
+Network: 192.168.96.0 /19   255.255.224.0
+
+10.1.1.243/29 (4th,8i)
+80 + 80 + 80 = 240
+
+10.1.1.240/29
+
+
+@coreTAAS
+conf t
+ ip routing 
+ int fa0/9
+  no switchport
+  ip add 172.16.224.1 255.255.255.0
+  no shut
+  end
   
+@coreBABA
+conf t
+ ip routing
+ int fa0/9
+  no switchport
+  ip add 172.16.225.254 255.255.255.0
+  no shut
+  end
+  
+  
+  
+
+@Exercise 09: Design and Implement 16 offices using the Network address 172.16.224.0/19. Maximize the number of IP addresses.
+
+172.16.224.0/19
+
+
+C: 16 = 4bits
+A: /19 + 4 = /23 (3rd, 2i)
+I: 16i in 3rd octet
+
+172.16.224.0/23
+	First: 172.16.224.1
+	Last: 172.16.225.254	
+172.16.226.0/23
+	First: 172.16.226.1
+	Last: 172.16.227.254
+172.16.228.0/23
+	First: 172.16.228.1
+	Last: 172.16.229.254
+
+172.16.230.0/23
+172.16.232.0/23
+172.16.234.0/23
+172.16.236.0/23
+172.16.238.0/23
+172.16.240.0/23
+172.16.242.0/23
+172.16.244.0/23
+172.16.246.0/23
+172.16.248.0/23
+172.16.250.0/23
+172.16.252.0/23
+172.16.254.0/23
+
+
+Apply the first valid IP of the 1st subnet on I1's e0/0 interface
+Apply the last valid IP of the 1st subnet on R1's e0/0 interface
+
+conf t
+ ip routing
+ int e0/0
+  ip add 172.16.224.1 255.255.254.0
+  no shut
+  end
+ 
+conf t
+ int e0/0
+  ip add 172.16.225.254 255.255.254.0
+  no shut
+  end
+
+
+Apply the first valid IP of the 2nd subnet on I2's e0/0 interface
+Apply the last valid IP of the 2nd subnet on R2's e0/0 interface
+
+conf t
+ int e0/0
+  ip add 172.16.226.1 255.255.254.0
+  no shut
+  end
+ 
+conf t
+ int e0/0
+  ip add 172.16.227.254 255.255.254.0
+  no shut
+  end
+
+Apply the first valid IP of the 3rd subnet on I3's e0/0 interface
+Apply the last valid IP of the 3rd subnet on R3's e0/0 interface
+
+conf t
+ int e0/0
+  ip add 172.16.228.1 255.255.254.0
+  no shut
+  end
+ 
+conf t
+ int e0/0
+  ip add 172.16.229.254 255.255.254.0
+  no shut
+  end
+
+Apply the first valid IP of the 4th subnet on I4's e0/0 interface
+Apply the last valid IP of the 4th subnet on R4's e0/0 interface
